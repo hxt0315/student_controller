@@ -11,4 +11,6 @@ public interface UserService {
     public Integer findSchNumber(String schNumber);
     public void addUser(User user);
     public String findPasswordByUsername(String username);
+    public User findUserByUsername(String username);
+    public void userUpdate(User user);
 }

@@ -1,5 +1,6 @@
 package xyz.teikou.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
@@ -8,6 +9,7 @@ import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +23,18 @@ import xyz.teikou.shiro.UserRealm;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.time.Clock;
+import java.util.Date;
+
+import static java.time.LocalTime.now;
+import static java.time.ZoneOffset.UTC;
 
 /**
  * Creat by TeiKou
  * 2019/10/9 14:40
  */
+@Slf4j
 @Controller
 public class UserController {
     @Autowired
@@ -96,6 +105,10 @@ public class UserController {
         try {
             subject.login(token);
             httpServletRequest.getSession().setAttribute("username", username);
+            User user = userService.findUserByUsername(username);
+            user.setLoginCount(user.getLoginCount()+1);
+            //TODo 上次登陆时间未达预期
+            userService.userUpdate(user);
             return "/index";
         } catch (RuntimeException e) {
             return "/login";

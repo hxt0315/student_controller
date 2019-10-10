@@ -44,4 +44,21 @@ public class UserServiceImpl implements UserService {
         return userMapper.selectOne(queryWrapper).getPassword();
 
     }
+
+    @Override
+    public User findUserByUsername(String username) {
+        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("username",username);
+        User user = userMapper.selectOne(queryWrapper);
+        return user;
+    }
+
+    @Override
+    public void userUpdate(User user) {
+//        userMapper.updateById(user);
+        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+        String username=user.getUsername();
+        queryWrapper.eq("username",username);
+        userMapper.update(user,queryWrapper);
+    }
 }

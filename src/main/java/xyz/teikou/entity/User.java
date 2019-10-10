@@ -1,17 +1,16 @@
 package xyz.teikou.entity;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
+
 import lombok.Data;
 
 import java.io.Serializable;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author teikou
@@ -74,7 +73,7 @@ public class User implements Serializable {
     /**
      * 上次登陆时间
      */
-    @TableField("last_time")
+    @TableField(value = "last_time",fill = FieldFill.UPDATE)
     private Date lastTime;
 
     /**
@@ -89,4 +88,6 @@ public class User implements Serializable {
     @TableField("sch_department")
     private String schDepartment;
 
+    @TableField("login_count")
+    private Integer loginCount;
 }
