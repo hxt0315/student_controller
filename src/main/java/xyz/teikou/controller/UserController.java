@@ -96,8 +96,8 @@ public class UserController {
         UsernamePasswordToken token = new UsernamePasswordToken(username, password1);
         try {
             subject.login(token);
-            httpServletRequest.getSession().setAttribute("username", username);
             User user = userService.findUserByUsername(username);
+            httpServletRequest.getSession().setAttribute("user", user);
             user.setLoginCount(user.getLoginCount()+1);
             //TODo 上次登陆时间未达预期
             userService.userUpdate(user);

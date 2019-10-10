@@ -6,7 +6,8 @@
 </head>
 <body>
 <h3>学生情報管理システムへようこそ！</h3>
-<a th:text="${session.username}"></a>
+<a th:text="${session.user.getUsername()}"></a>
 <a href="/teacher/insert">成绩录入</a>
+<a href="/student/myGrades">我的成绩</a>
 </body>
 </html>
