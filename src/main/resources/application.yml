@@ -4,3 +4,12 @@ spring:
     url: jdbc:mysql://localhost:3306/student_controller?serverTimezone=UTC
     username: root
     password: root
+shiro:
+  sessionManager:
+    sessionIdCookieEnabled: true
+    sessionIdUrlRewritingEnabled: true
+  unauthorizedUrl: "/unauthorizedurl"
+  web:
+    enabled: true
+  successUrl: "/index"
+  loginUrl: "/doLogin"

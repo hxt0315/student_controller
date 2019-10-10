@@ -1,0 +1,14 @@
+package xyz.teikou.service;
+
+import xyz.teikou.entity.User;
+
+/**
+ * Creat by TeiKou
+ * 2019/10/9 11:50
+ */
+public interface UserService {
+    public Integer findUserName(String username);
+    public Integer findSchNumber(String schNumber);
+    public void addUser(User user);
+    public String findPasswordByUsername(String username);
+}
