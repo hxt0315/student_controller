@@ -9,28 +9,23 @@
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
+           <h3>查询我的成绩</h3>
             <table class="table">
                 <thead>
                 <tr>
-                    <th>
-                        语文成绩
-                    </th>
-                    <th>
-                        数学成绩
-                    </th>
-                    <th>
-                       英语成绩
-                    </th>
-                    <th>
-                        考试批次
-                    </th>
+                    <th>语文成绩</th>
+                    <th>数学成绩</th>
+                    <th>英语成绩</th>
+                    <th>平均成绩</th>
+                    <th>考试批次</th>
                 </tr>
                 </thead>
-                <tbody >
+                <tbody>
                 <tr th:each="grade:${grades}">
                     <td th:text="${grade.getChinese()}"></td>
                     <td th:text="${grade.getMath()}"></td>
                     <td th:text="${grade.getEnglish()}"></td>
+                    <td th:text="((${grade.getChinese()}+${grade.getEnglish()}+${grade.getMath()})/3)"></td>
                     <td th:text="${grade.getTestNo()}"></td>
                 </tr>
                 </tbody>
