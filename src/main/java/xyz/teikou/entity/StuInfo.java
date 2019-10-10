@@ -26,7 +26,7 @@ public class StuInfo implements Serializable {
     private Integer id;
 
     @TableField("sch_number")
-    private Integer schNumber;
+    private String schNumber;
 
     @TableField("address")
     private String address;

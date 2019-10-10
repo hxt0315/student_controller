@@ -22,11 +22,11 @@ public class Grade implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.ID_WORKER)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     @TableField("sch_number")
-    private Integer schNumber;
+    private String schNumber;
 
     @TableField("chinese")
     private Integer chinese;
@@ -37,4 +37,9 @@ public class Grade implements Serializable {
     @TableField("english")
     private Integer english;
 
+    @TableField("test_no")
+    private String testNo;
+
+    @TableField("operator")
+    private String operator;
 }

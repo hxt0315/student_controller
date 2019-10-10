@@ -3,13 +3,11 @@ package xyz.teikou.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,15 +18,9 @@ import xyz.teikou.form.UserForm;
 import xyz.teikou.service.UserService;
 import xyz.teikou.shiro.UserRealm;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.text.SimpleDateFormat;
-import java.time.Clock;
-import java.util.Date;
 
-import static java.time.LocalTime.now;
-import static java.time.ZoneOffset.UTC;
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * Creat by TeiKou

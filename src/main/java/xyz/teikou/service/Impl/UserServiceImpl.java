@@ -7,6 +7,8 @@ import xyz.teikou.entity.User;
 import xyz.teikou.mapper.UserMapper;
 import xyz.teikou.service.UserService;
 
+import java.util.List;
+
 /**
  * Creat by TeiKou
  * 2019/10/9 11:51
@@ -60,5 +62,10 @@ public class UserServiceImpl implements UserService {
         String username=user.getUsername();
         queryWrapper.eq("username",username);
         userMapper.update(user,queryWrapper);
+    }
+
+    @Override
+    public List<User> findAllUser() {
+       return userMapper.selectList(null);
     }
 }
