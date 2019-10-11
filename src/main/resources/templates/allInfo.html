@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>查询所有学生成绩</title>
+    <title>查询所有学生信息</title>
     <link href="https://cdn.bootcss.com/twitter-bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -10,7 +10,7 @@
     <div class="row clearfix">
         <div class="col-md-12 column">
             <h3>
-                学生成绩管理系统
+                学生信息管理系统
             </h3>
         </div>
     </div>
@@ -19,7 +19,7 @@
             <h3>
                查询条件
             </h3>
-            <form class="form-horizontal" role="form" action="/teacher/oneGrade">
+            <form class="form-horizontal" role="form" action="/teacher/theInfo">
                 <div class="form-group">
                     <label class="col-sm-2 control-label">学号</label>
                     <div class="col-sm-10">
@@ -76,23 +76,21 @@
                 <thead>
                 <tr>
                     <th>学号</th>
-                    <th>语文成绩</th>
-                    <th>数学成绩</th>
-                    <th>英语成绩</th>
-                    <th>平均成绩</th>
-                    <th>考试批次</th>
-                    <th>操作</th>
+                    <th>家庭住址</th>
+                    <th>父亲姓名</th>
+                    <th>父亲联系方式</th>
+                    <th>母亲姓名</th>
+                    <th>母亲联系方式</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="grade:${grades}">
-                    <td th:text="${grade.getSchNumber()}"></td>
-                    <td th:text="${grade.getChinese()}"></td>
-                    <td th:text="${grade.getMath()}"></td>
-                    <td th:text="${grade.getEnglish()}"></td>
-                    <td th:text="((${grade.getChinese()}+${grade.getEnglish()}+${grade.getMath()})/3)"></td>
-                    <td th:text="${grade.getTestNo()}"></td>
-                    <td><a th:href="@{/teacher/updateGrade(id=${grade.getId()})}">修改</a> </td>
+                <tr th:each="info:${allInfos}">
+                    <td th:text="${info.getSchNumber()}"></td>
+                    <td th:text="${info.getAddress()}"></td>
+                    <td th:text="${info.getFatherName()}"></td>
+                    <td th:text="${info.getFatherPhone()}"></td>
+                    <td th:text="${info.getMatherName()}"></td>
+                    <td th:text="${info.getMatherPhone()}"></td>
                 </tr>
                 </tbody>
             </table>
