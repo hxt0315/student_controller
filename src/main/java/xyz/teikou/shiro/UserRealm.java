@@ -5,11 +5,16 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import xyz.teikou.entity.User;
 import xyz.teikou.service.UserService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Creat by TeiKou
@@ -25,7 +30,15 @@ public class UserRealm extends AuthorizingRealm {
     UserService userService;
     @Override //授权
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        return null;
+        String username= (String) principalCollection.getPrimaryPrincipal();
+        User userByUsername = userService.findUserByUsername(username);
+        String role= userByUsername.getRoleId().toString();
+        Set<String> roles =new HashSet<>();
+        roles.add(role);
+        SimpleAuthorizationInfo simpleAuthorizationInfo =new SimpleAuthorizationInfo();
+        simpleAuthorizationInfo.setRoles(roles);
+        return simpleAuthorizationInfo;
+//        return null;
     }
 
     @Override  //认证
