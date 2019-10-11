@@ -18,6 +18,7 @@ import java.util.List;
  * 2019/10/10 15:15
  * 教师端成绩管理
  */
+//TODO  AuthorizationException 异常处理还未加上
 @Controller
 @RequestMapping("/teacher")
 @RequiresRoles("2")
@@ -35,11 +36,14 @@ public class TGradeController {
 
     @RequestMapping("/insert")
     public ModelAndView insert() {
-        ModelAndView mv = new ModelAndView("addGrade");
-        List<User> allUser = userService.findAllUser();
-        mv.addObject("schList", allUser);
-        return mv;
+        ModelAndView mv = new ModelAndView();
+      mv.setViewName("addGrade");
+      List<User> allUser = userService.findAllUser();
+      mv.addObject("schList", allUser);
+      return mv;
     }
+
+
 
     @RequestMapping("/findAll")
     public ModelAndView findAll() {

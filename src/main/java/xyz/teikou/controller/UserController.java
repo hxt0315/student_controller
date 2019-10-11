@@ -62,7 +62,7 @@ public class UserController {
 //        Md5Hash md5Hash = new Md5Hash(user.getPassword());
         user.setPassword(md5Hash.toString());
         userService.addUser(user);
-        mv.setViewName("index");
+        mv.setViewName("success");
         return mv;
     }
 
@@ -72,8 +72,19 @@ public class UserController {
     }
 
     @RequestMapping("/index")
-    public String index() {
-        return "/index";
+    public String index(HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("user");
+        Integer roleId = user.getRoleId();
+        switch (roleId) {
+            case 1:
+                return "index1";
+
+            case 2:
+                return "index2";
+
+            default:
+                return "error";
+        }
     }
 
     @PostMapping("/login")
@@ -83,12 +94,6 @@ public class UserController {
         UserRealm userRealm = new UserRealm();
         DefaultSecurityManager defaultSecurityManager = new DefaultSecurityManager();
         defaultSecurityManager.setRealm(userRealm);
-//        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher();
-//        //设置加密算法名称
-//        matcher.setHashAlgorithmName("md5");
-//        //设置加密次数
-//        matcher.setHashIterations(1);
-//        userRealm.setCredentialsMatcher(matcher);
         SecurityUtils.setSecurityManager(defaultSecurityManager);
         Subject subject = SecurityUtils.getSubject();
         Md5Hash md5Hash = new Md5Hash(password, "xsglx");
@@ -98,10 +103,10 @@ public class UserController {
             subject.login(token);
             User user = userService.findUserByUsername(username);
             httpServletRequest.getSession().setAttribute("user", user);
-            user.setLoginCount(user.getLoginCount()+1);
+            user.setLoginCount(user.getLoginCount() + 1);
             //TODo 上次登陆时间未达预期
             userService.userUpdate(user);
-            return "/index";
+            return "/success";
         } catch (RuntimeException e) {
             return "/login";
         }
@@ -112,8 +117,8 @@ public class UserController {
     public String logout() {
         try {
             SecurityUtils.getSubject().logout();
-            return ("/index");
-        }catch (Exception e){
+            return ("/success");
+        } catch (Exception e) {
             return null;
         }
     }

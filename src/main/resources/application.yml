@@ -11,5 +11,5 @@ shiro:
   unauthorizedUrl: "/unauthorizedurl"
   web:
     enabled: true
-  successUrl: "/index"
+  successUrl: "/success"
   loginUrl: "/doLogin"
