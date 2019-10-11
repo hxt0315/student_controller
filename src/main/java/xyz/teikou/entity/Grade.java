@@ -42,4 +42,7 @@ public class Grade implements Serializable {
 
     @TableField("operator")
     private String operator;
+
+    @TableField("updater")
+    private String updater;
 }

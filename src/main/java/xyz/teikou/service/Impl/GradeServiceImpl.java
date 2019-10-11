@@ -30,4 +30,30 @@ public class GradeServiceImpl implements GradeService {
         List<Grade> grades = gradeMapper.selectList(queryWrapper);
         return grades;
     }
+
+    @Override
+    public List<Grade> selectAllGrade() {
+        List<Grade> grades = gradeMapper.selectList(null);
+        return grades;
+    }
+
+    @Override
+    public List<Grade> seleOneGrade(String schNumber) {
+        QueryWrapper<Grade> queryWrapper =new QueryWrapper<>();
+        queryWrapper.eq("sch_number",schNumber);
+        List<Grade> grades = gradeMapper.selectList(queryWrapper);
+        return grades;
+    }
+
+    @Override
+    public void updateGrade(Grade grade) {
+        gradeMapper.updateById(grade);
+    }
+
+    @Override
+    public Grade seleTheGrade(Integer id) {
+
+        Grade grade = gradeMapper.selectById(id);
+        return grade;
+    }
 }

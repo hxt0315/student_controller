@@ -9,12 +9,16 @@ import java.util.List;
  * 2019/10/10 15:11
  */
 public interface GradeService {
-    /**
-     * @author Teikou
-     * @date 2019/10/10 15:12
-     * 添加成绩
-     */
+
     public void addGrade(Grade grade);
 
     public List<Grade> selectMyGrade(String schNumber);
+
+    public List<Grade> selectAllGrade();
+
+    public List<Grade> seleOneGrade(String schNumber);
+
+    public void updateGrade(Grade grade);
+
+    public Grade seleTheGrade(Integer id);
 }
