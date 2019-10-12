@@ -1,6 +1,7 @@
 package xyz.teikou.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.crypto.hash.Md5Hash;
@@ -57,9 +58,9 @@ public class UserController {
         }
         User user = new User();
         BeanUtils.copyProperties(userForm, user);
-        user.setSalt("xsglx");
+        String salt = RandomStringUtils.random(5,"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPLKJHGFDSAZXCVBNM");
+        user.setSalt(salt);
         Md5Hash md5Hash = new Md5Hash(user.getPassword(), user.getSalt());
-//        Md5Hash md5Hash = new Md5Hash(user.getPassword());
         user.setPassword(md5Hash.toString());
         userService.addUser(user);
         mv.setViewName("success");
@@ -96,12 +97,13 @@ public class UserController {
         defaultSecurityManager.setRealm(userRealm);
         SecurityUtils.setSecurityManager(defaultSecurityManager);
         Subject subject = SecurityUtils.getSubject();
-        Md5Hash md5Hash = new Md5Hash(password, "xsglx");
-        String password1 = md5Hash.toString();
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password1);
         try {
-            subject.login(token);
             User user = userService.findUserByUsername(username);
+            String salt=user.getSalt();
+            Md5Hash md5Hash = new Md5Hash(password, salt);
+            String password1 = md5Hash.toString();
+            UsernamePasswordToken token = new UsernamePasswordToken(username, password1);
+            subject.login(token);
             httpServletRequest.getSession().setAttribute("user", user);
             user.setLoginCount(user.getLoginCount() + 1);
             //TODo 上次登陆时间未达预期
